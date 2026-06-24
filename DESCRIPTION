@@ -1,0 +1,11 @@
+Package: shrub
+Title: Shell to R Utility Bridge
+Version: 0.1.0
+Authors@R: person("Julian", "Caro", email = "jcaro.cont@gmail.com", role = c("aut", "cre"))
+Description: A small set of interactive utilities for navigating and inspecting the filesystem from within an R session, inspired by common shell workflows.
+License: MIT
+URL: {{ URL }}
+BugReports: {{ BugReports }}
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.3

@@ -1,0 +1,14 @@
+[package]
+name = "shrub"
+version = "0.1.0"
+title = "Shell to R Utility Bridge"
+description = "A small set of interactive utilities for navigating and inspecting the filesystem from within an R session, inspired by common shell workflows."
+license = "MIT"
+
+[authors]
+[[authors.person]]
+name = "Julian Caro"
+email = "jcaro.cont@gmail.com"
+role = ["aut", "cre"]
+
+[imports]
