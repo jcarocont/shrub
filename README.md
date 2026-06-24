@@ -9,10 +9,10 @@
 
 ---
 
-Si trabajas en R pero tu cerebro sigue pensando en la terminal, `shrub` es para ti. Un conjunto mínimo de utilidades para navegar y explorar el filesystem desde la sesión de R, sin salir, sin `setwd()` a mano, sin perder el hilo.
+R a veces se siente como algo muy aislado y no tiene tanta integracion con la terminal. Shrub se trata d eso. Un conjunto mínimo de utilidades para navegar y explorar el filesystem desde la sesión de R, sin salir, sin `setwd()` a mano, sin perder el hilo.
 
 Cero dependencias. Puro base R.
-# <img src="media/img1.png" heigth="200"/>
+# <img src="media/img1.png" align="center" heigth="200"/>
 ## Instalación
 
 ```r
