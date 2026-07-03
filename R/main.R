@@ -225,3 +225,79 @@ cdls <- function(path) {
 rla <- function(path = ".") {
   file.info(list.files(path, full.names = TRUE))
 }
+#' Setear defaults de argumentos para una función, a nivel de sesión
+#'
+#' @param fn Una función.
+#' @param defaults Lista (o vector nombrado) con los nuevos valores por default.
+#'
+#' @return La misma función, con los formals modificados.
+#' @export
+#'
+#' @examples
+#' f <- function(a = 1, b = 2) a + b
+#' f <- argsetter(f, list(a = 10))
+#' f()  # 12
+argsetter <- function(fn, defaults) {
+  defaults <- as.list(defaults)
+  f <- formals(fn)
+
+  missing_args <- setdiff(names(defaults), names(f))
+  if (length(missing_args) > 0) {
+    stop("Estos argumentos no existen en la función: ",
+         paste(missing_args, collapse = ", "))
+  }
+
+  # slot \u00fanico, anidado, con nombre reservado -> no choca con otros attrs
+  state <- attr(fn, ".argsetter")
+  if (is.null(state)) {
+    state <- list(original_formals = f)
+  }
+
+  for (nm in names(defaults)) {
+    f[[nm]] <- defaults[[nm]]
+  }
+
+  formals(fn) <- f
+  attr(fn, ".argsetter") <- state
+  fn
+}
+#' Restaurar los defaults originales de una función modificada con argsetter
+#'
+#' @param fn Una función previamente pasada por \code{\link{argsetter}}.
+#'
+#' @return La función con sus formals originales restaurados.
+#' @export
+#'
+#' @examples
+#' f <- function(a = 1, b = 2) a + b
+#' f <- argsetter(f, list(a = 10))
+#' f <- argclean(f)
+#' f()  # 3
+argclean <- function(fn) {
+  state <- attr(fn, ".argsetter")
+
+  if (is.null(state)) {
+    warning("Esta función no tiene defaults originales guardados ",
+            "(nunca pasó por argsetter).")
+    return(fn)
+  }
+
+  formals(fn) <- state$original_formals
+  attr(fn, ".argsetter") <- NULL
+  fn
+}
+#' Alias corto para \code{list()}
+#'
+#' Wrapper con nombre corto para \code{\link{list}}, pensado para uso
+#' interactivo en la consola donde escribir \code{list(...)} repetidamente
+#' es tedioso.
+#'
+#' @param ... Elementos a pasar a \code{list()}.
+#'
+#' @return Un objeto \code{list}.
+#' @export
+#'
+#' @examples
+#' dv(a = 1, b = 2)
+dv <- list
+

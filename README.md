@@ -77,6 +77,36 @@ Devuelve un dataframe con metadata del contenido de un directorio. El `ls -la` d
 rla()           # directorio actual
 rla("~/data")   # directorio específico
 ```
+### `dv()` — alias corto de `list()`
+
+Wrapper directo para no escribir `list(...)` cien veces en la consola.
+
+```r
+dv(a = 1, b = 2)
+```
+
+---
+
+### `argsetter()` — setear defaults de argumentos, a nivel de sesión
+
+Modifica los valores por omisión de los argumentos formales de una función existente. Persiste mientras dure la sesión. El estado original queda guardado en un slot interno (`.argsetter`) dentro de los atributos de la función, listo para revertir con `argclean()`.
+
+```r
+f <- function(a = 1, b = 2) a + b
+f <- argsetter(f, dv(a = 10))
+f()   # 12
+```
+
+---
+
+### `argclean()` — restaurar los defaults originales
+
+Revierte una función modificada con `argsetter()` a sus formals originales.
+
+```r
+f <- argclean(f)
+f()   # 3
+```
 
 ## Autor
 
